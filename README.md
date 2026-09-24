@@ -1,11 +1,11 @@
 # coinsdo-wallet-mcp
 
-
 ## MCP服务
-> 基于 [mcp-go](https://github.com/mark3labs/mcp-go) 开发，服务名称 `coinsdo/wallet-mcp-server`。
+> 基于 [mcp-go](https://github.com/mark3labs/mcp-go) 开发，服务名称 `coinsdo-wallet-mcp`。
 
-> ##### 数据路径
-> Unix: `/Users/用户名/Library/Application Support/coinsdo/`
+> ##### 数据路径 
+> macOS/darwin: `/Users/用户名/Library/Application Support/coinsdo-wallet-mcp/`
+> linux: `/home/用户名/.config/coinsdo-wallet-mcp/`
 
 ## 启动服务
 ```cmd
@@ -15,6 +15,8 @@ service -t http      # http + prod
 ```
 
 ```cmd
+-v  查看版本
+-r  重新初始化 ⚠️⚠️⚠️将清除数据
 -e  运行环境 (test, prod) [默认: prod]
 -t  传输方式 (stdio, http) [默认: stdio]
 -p  HTTP 端口（仅 http 模式）[默认: 8080]
@@ -76,7 +78,7 @@ Header 响应头包含 Mcp-Session-Id
       }
     },
     "serverInfo": {
-      "name": "coinsdo/wallet-mcp-server",
+      "name": "coinsdo-wallet-mcp",
       "version": "V1.0.0"
     }
   }
@@ -128,11 +130,11 @@ curl -X POST http://localhost:8080/mcp \
         "outputSchema": {
           "additionalProperties": false,
           "properties": {
-            "serviceName": {
+            "ServerName": {
               "description": "MCP service name",
               "type": "string"
             },
-            "serviceVersion": {
+            "ServerVersion": {
               "description": "MCP service version",
               "type": "string"
             },
@@ -142,8 +144,8 @@ curl -X POST http://localhost:8080/mcp \
             }
           },
           "required": [
-            "serviceName",
-            "serviceVersion",
+            "ServerName",
+            "ServerVersion",
             "dbVersion"
           ],
           "type": "object"
@@ -168,15 +170,18 @@ curl -X POST http://localhost:8080/mcp \
 > status
 
 #### Request
-```json
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "tools/call",
-  "params": {
-    "name": "status"
-  }
-}
+```cmd
+curl -X POST http://localhost:8080/mcp \
+  -H "Content-Type: application/json" \
+  -H "Mcp-Session-Id: mcp-session-49803ae2-5173-486b-9a4b-97458755ed42" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
+    "params": {
+      "name": "status"
+    }
+  }'
 ```
 
 #### Response
@@ -185,16 +190,16 @@ curl -X POST http://localhost:8080/mcp \
 |-----------------|--------|------|-------------------------------------------------------|--------------------------|
 | transportType   | string | 否    | `stdio` `http`                                        | Transport type           |
 | environmentName | string | 否    | `dev` `test` `prod`                                   | Environment name         |
-| serviceName     | string | 否    | `coinsdo/wallet-mcp-server`                           | MPC钱包服务名称                |
-| serviceVersion  | string | 否    | `V1.0.0`                                              | MPC钱包服务版本                |
+| ServerName      | string | 否    | `coinsdo-wallet-mcp`                                  | MPC钱包服务名称                |
+| ServerVersion   | string | 否    | `V1.0.0`                                              | MPC钱包服务版本                |
 | dbVersion       | string | 否    | `1.0.0+100`                                           | 当前数据库版本                  |
 | latestDbVersion | string | 否    | `1.0.3+130`                                           | 最新数据库版本                  |
 | mainBaseUrl     | string | 否    | `https://merchant.coinsdo.com/coinsdo/wallet`         | Mainnet api base url     |
 | testBaseUrl     | string | 否    | `https://merchant.coinsdotest.com/coinsdo/wallet`     | Testnet api base url     |
 | teeBaseUrl      | string | 否    | `https://merchant.coinsdotest.com/coinsdo/tee`        | Mpc service api base url |
 | authBaseUrl     | string | 否    | `https://merchant.coinsdotest.com/coinsdo/coinwallet` | Abi service api base url |
-
-
+| clientName      | string | 否    | `curl-client`                                         | Client name              |
+| clientVersion   | string | 否    | `1.0.0`                                               | Client version           |
 
 ```json
 {
@@ -204,55 +209,26 @@ curl -X POST http://localhost:8080/mcp \
     "content": [
       {
         "type": "text",
-        "text": "{\"transportType\":\"http\",\"environmentName\":\"test\",\"serviceName\":\"coinsdo/wallet-mcp-server\",\"serviceVersion\":\"V1.0.0\",\"dbVersion\":\"2.0.30+1424\",\"latestDbVersion\":\"2.0.30+1424\",\"mainBaseUrl\":\"https://merchant.coinsdo.com/coinsdo/wallet\",\"testBaseUrl\":\"https://merchant.coinsdotest.com/coinsdo/wallet\",\"teeBaseUrl\":\"https://merchant.coinsdotest.com/coinsdo/tee\",\"authBaseUrl\":\"https://merchant.coinsdotest.com/coinsdo/coinwallet\"}"
+        "text": "{\"transportType\":\"http\",\"environmentName\":\"test\",\"ServerName\":\"coinsdo-wallet-mcp\",\"ServerVersion\":\"V1.0.0\",\"dbVersion\":\"2.0.30+1424\",\"latestDbVersion\":\"2.0.30+1424\",\"mainBaseUrl\":\"https://merchant.coinsdo.com/coinsdo/wallet\",\"testBaseUrl\":\"https://merchant.coinsdotest.com/coinsdo/wallet\",\"teeBaseUrl\":\"https://merchant.coinsdotest.com/coinsdo/tee\",\"authBaseUrl\":\"https://merchant.coinsdotest.com/coinsdo/coinwallet\"}"
       }
     ],
     "structuredContent": {
       "transportType": "http",
       "environmentName": "test",
-      "serviceName": "coinsdo/wallet-mcp-server",
-      "serviceVersion": "V1.0.0",
+      "ServerName": "coinsdo-wallet-mcp",
+      "ServerVersion": "V1.0.0",
       "dbVersion": "2.0.30+1424",
       "latestDbVersion": "2.0.30+1424",
       "mainBaseUrl": "https://merchant.coinsdo.com/coinsdo/wallet",
       "testBaseUrl": "https://merchant.coinsdotest.com/coinsdo/wallet",
       "teeBaseUrl": "https://merchant.coinsdotest.com/coinsdo/tee",
-      "authBaseUrl": "https://merchant.coinsdotest.com/coinsdo/coinwallet"
+      "authBaseUrl": "https://merchant.coinsdotest.com/coinsdo/coinwallet",
+      "clientName": "curl-client",
+      "clientVersion": "1.0.0"
     }
   }
 }
 ```
-
-### 2、登录或注册
-> user_login
-
-#### Request
-```json
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "tools/call",
-  "params": {
-    "name": "status",
-    "arguments": {
-      "password": "123456"
-    }
-  }
-}
-```
-
-| 字段           | 类型     | 必填 | 示例值         | 描述   |
-|--------------|--------|----|-------------|------|
-| userPassword | string | 是  | `123456789` | 用户密码 |
-
-#### Response
-
-| 字段             | 类型     | Null | 示例值                         | 描述         |
-|----------------|--------|------|-----------------------------|------------|
-| serviceName    | string | 否    | `coinsdo/wallet-mcp-server` | MPC钱包服务名称  |
-| serviceVersion | string | 否    | `V1.0.0`                    | MPC钱包服务版本号 |
-| dbVersion      | string | 否    | `1.0.0+100`                 | DB数据库版本号   |
-
 
 
 ### 2、加入MPC钱包
