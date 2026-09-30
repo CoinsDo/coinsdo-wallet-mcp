@@ -271,25 +271,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 4、领取MPC钱包分片
-> claim_key_shard
-
-#### Request
-
-| 字段       | 类型  | 必填 | 示例值  | 描述   |
-|----------|-----|----|------|------|
-| walletId | int | 是  | `12` | 钱包ID |
-
-#### Response
-
-| 字段         | 类型     | Null | 示例值          | 描述   |
-|------------|--------|------|--------------|------|
-| walletId   | int    | 否    | `12`         | 钱包ID |
-| walletName | string | 否    | `MPC-Wallet` | 钱包名称 |
-
-
-
-### 5、查询MPC钱包列表
+### 4、查询MPC钱包列表
 > get_wallets
 
 #### Response - []
@@ -304,7 +286,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 6、获取MPC钱包信息
+### 5、获取MPC钱包信息
 > get_wallet
 
 #### Request
@@ -328,7 +310,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 7、获取支持链列表
+### 6、获取支持链列表
 > get_chains
 
 #### Request
@@ -351,7 +333,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 8、搜索支持链列表
+### 7、搜索支持链列表
 > search_chains
 
 #### Request - []
@@ -363,7 +345,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 #### Response
-* 同 `7、获取支持链列表`
+* 同 `6、获取支持链列表`
 
 
 
@@ -371,7 +353,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 9、获取支持协议列表
+### 8、获取支持协议列表
 > get_protocols
 
 #### Request
@@ -394,7 +376,7 @@ curl -X POST http://localhost:8080/mcp \
 | nftState        | int    | 否    | `1`                                                                        | 是否支持NFT 1.支持 2.不支持          |
 
 
-### 10、搜索支持协议列表
+### 9、搜索支持协议列表
 > search_protocols
 
 #### Request
@@ -406,7 +388,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 #### Response - []
-* 同 `9、获取支持协议列表`
+* 同 `8、获取支持协议列表`
 
 
 
@@ -414,7 +396,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 11、获取支持币种列表
+### 10、获取支持币种列表
 > get_currencies
 
 #### Request
@@ -439,7 +421,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 12、搜索支持币种列表
+### 11、搜索支持币种列表
 > search_currencies
 
 #### Request
@@ -452,11 +434,11 @@ curl -X POST http://localhost:8080/mcp \
 | currencyName | string | 是  | `ETH` `USDT`     | 币种名称，最小长度2，模糊搜索           |
 
 #### Response - []
-* 同 `11、获取支持币种列表`
+* 同 `10、获取支持币种列表`
 
 
 
-### 13、添加代币币种
+### 12、添加代币币种
 > add_currency
 
 #### Request
@@ -468,7 +450,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 #### Response
-* 同 `11、获取支持币种列表`
+* 同 `10、获取支持币种列表`
 
 
 
@@ -477,7 +459,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 14、获取NFT项目列表
+### 13、获取NFT项目列表
 > get_nft_project
 
 #### Request
@@ -502,7 +484,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 15、搜索NFT项目列表
+### 14、搜索NFT项目列表
 > search_nft_project
 
 #### Request
@@ -515,11 +497,11 @@ curl -X POST http://localhost:8080/mcp \
 | projectName | string | 是  | `Blokyz`         | NFT项目名称，最小长度2，模糊搜索        |
 
 #### Response - []
-* 同 `14、获取NFT项目列表`
+* 同 `13、获取NFT项目列表`
 
 
 
-### 16、添加NFT项目
+### 15、添加NFT项目
 > add_nft_project
 
 #### Request
@@ -530,7 +512,7 @@ curl -X POST http://localhost:8080/mcp \
 | flag       | string | 是  | `0x84270A00a77D45ae007D2b0897F05b872ad1704F` | 合约地址或代币ID |
 
 #### Response
-* 同 `14、获取NFT项目列表`
+* 同 `13、获取NFT项目列表`
 
 
 
@@ -540,7 +522,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 17、获取钱包地址列表
+### 16、获取钱包地址列表
 > get_addresses
 
 #### Request
@@ -573,7 +555,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 18、搜索地址列表
+### 17、搜索地址列表
 > search_addresses
 
 #### Request
@@ -585,12 +567,12 @@ curl -X POST http://localhost:8080/mcp \
 | currencyType | int    | 否  | `1` `3`  | 币种类型, 0.默认全部 1.主币, 3.代币           |
 
 #### Response - []
-* 同 `17、获取钱包地址列表`
+* 同 `16、获取钱包地址列表`
 
 
 
 
-### 19、添加钱包地址
+### 18、添加钱包地址
 > add_address
 
 #### Request
@@ -617,7 +599,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 20、获取地址余额
+### 19、获取地址余额
 > get_address_balance
 
 #### Request
@@ -639,7 +621,7 @@ curl -X POST http://localhost:8080/mcp \
 | balance      | string | 否    | `1.435`                                      | 余额                          |
 
 
-### 21、查询地址余额
+### 20、查询地址余额
 > query_address_balance
 
 #### Request
@@ -667,7 +649,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 22、发送普通交易
+### 21、发送普通交易
 > send_transaction
 
 #### Request
@@ -703,7 +685,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 23、发送NFT交易
+### 22、发送NFT交易
 > send_nft_transaction
 
 #### Request
@@ -718,13 +700,13 @@ curl -X POST http://localhost:8080/mcp \
 | comment     | string | 否  | `test send`                                  | 交易说明      |
 
 #### Response
-* 同 `22、发送普通交易`
+* 同 `21、发送普通交易`
 
 
 
 
 
-### 24、获取交易列表
+### 23、获取交易列表
 > get_transactions
 
 #### Request
@@ -748,7 +730,7 @@ curl -X POST http://localhost:8080/mcp \
 ```
 
 交易信息: transaction
-* 同 `22、发送普通交易`
+* 同 `21、发送普通交易`
 
 加速记录: accelerates - []
 
@@ -759,7 +741,7 @@ curl -X POST http://localhost:8080/mcp \
 
 
 
-### 25、获取交易信息
+### 24、获取交易信息
 > get_transaction
 
 #### Request
