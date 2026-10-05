@@ -17,7 +17,7 @@ service -t http      # http + prod
 
 ```cmd
 -v  查看版本
--r  重新初始化 ⚠️⚠️⚠️将清除数据
+-clean-data  ⚠️️Clean all local data (database, logs, secure password)⚠️
 -e  运行环境 (test, prod) [默认: prod]
 -t  传输方式 (stdio, http) [默认: stdio]
 -p  HTTP 端口（仅 http 模式）[默认: 8080]

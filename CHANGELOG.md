@@ -2,6 +2,7 @@
 
 本文件记录项目的所有重要变更。
 
+
 ## [v1.0.7] - 2026-10-05
 
 ### Added
@@ -9,6 +10,7 @@
 - `send_transaction`工具添加`evmNonce`参数
 
 ### Changed
+- 运行指令`-r`改成`-clean-data`
 - `status`工具多返回`dataDir` 字段
 
 ### Fixed
