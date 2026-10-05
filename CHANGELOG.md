@@ -2,6 +2,18 @@
 
 本文件记录项目的所有重要变更。
 
+## [v1.0.7] - 2026-10-05
+
+### Added
+- 添加日志存储功能
+- `send_transaction`工具添加`evmNonce`参数
+
+### Changed
+- `status`工具多返回`dataDir` 字段
+
+### Fixed
+- 修正 `send_transaction`工具`TRON`链交易失败问题
+
 
 ## [v1.0.6] - 2026-09-30
 

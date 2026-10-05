@@ -5,6 +5,7 @@
 
 > ##### 数据路径 
 > macOS/darwin: `/Users/用户名/Library/Application Support/coinsdo-wallet-mcp/`
+> 
 > linux: `/home/用户名/.config/coinsdo-wallet-mcp/`
 
 ## 启动服务
@@ -186,20 +187,21 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Response
 
-| 字段              | 类型     | Null | 示例值                                                   | 描述                       |
-|-----------------|--------|------|-------------------------------------------------------|--------------------------|
-| transportType   | string | 否    | `stdio` `http`                                        | Transport type           |
-| environmentName | string | 否    | `dev` `test` `prod`                                   | Environment name         |
-| ServerName      | string | 否    | `coinsdo-wallet-mcp`                                  | MPC钱包服务名称                |
-| ServerVersion   | string | 否    | `V1.0.0`                                              | MPC钱包服务版本                |
-| dbVersion       | string | 否    | `1.0.0+100`                                           | 当前数据库版本                  |
-| latestDbVersion | string | 否    | `1.0.3+130`                                           | 最新数据库版本                  |
-| mainBaseUrl     | string | 否    | `https://merchant.coinsdo.com/coinsdo/wallet`         | Mainnet api base url     |
-| testBaseUrl     | string | 否    | `https://merchant.coinsdotest.com/coinsdo/wallet`     | Testnet api base url     |
-| teeBaseUrl      | string | 否    | `https://merchant.coinsdotest.com/coinsdo/tee`        | Mpc service api base url |
-| authBaseUrl     | string | 否    | `https://merchant.coinsdotest.com/coinsdo/coinwallet` | Abi service api base url |
-| clientName      | string | 否    | `curl-client`                                         | Client name              |
-| clientVersion   | string | 否    | `1.0.0`                                               | Client version           |
+| 字段              | 类型     | Null | 示例值                                                               | 描述                                |
+|-----------------|--------|------|-------------------------------------------------------------------|-----------------------------------|
+| transportType   | string | 否    | `stdio` `http`                                                    | Transport type                    |
+| environmentName | string | 否    | `dev` `test` `prod`                                               | Environment name                  |
+| ServerName      | string | 否    | `coinsdo-wallet-mcp`                                              | MPC钱包服务名称                         |
+| ServerVersion   | string | 否    | `V1.0.0`                                                          | MPC钱包服务版本                         |
+| dbVersion       | string | 否    | `1.0.0+100`                                                       | 当前数据库版本                           |
+| latestDbVersion | string | 否    | `1.0.3+130`                                                       | 最新数据库版本                           |
+| mainBaseUrl     | string | 否    | `https://merchant.coinsdo.com/coinsdo/wallet`                     | Mainnet api base url              |
+| testBaseUrl     | string | 否    | `https://merchant.coinsdotest.com/coinsdo/wallet`                 | Testnet api base url              |
+| teeBaseUrl      | string | 否    | `https://merchant.coinsdotest.com/coinsdo/tee`                    | Mpc service api base url          |
+| authBaseUrl     | string | 否    | `https://merchant.coinsdotest.com/coinsdo/coinwallet`             | Abi service api base url          |
+| clientName      | string | 否    | `curl-client`                                                     | Client name                       |
+| clientVersion   | string | 否    | `1.0.0`                                                           | Client version                    |
+| dataDir         | string | 否    | mac: `/Users/用户名/Library/Application Support/coinsdo-wallet-mcp/` | Local data storage directory path |
 
 ```json
 {
@@ -690,14 +692,15 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段          | 类型     | 必填 | 示例值                                          | 描述        |
-|-------------|--------|----|----------------------------------------------|-----------|
-| addressId   | int    | 是  | `102`                                        | 发送地址ID    |
-| projectId   | int    | 是  | `56`                                         | NFT项目ID   |
-| toAddress   | string | 是  | `0x7412f0ef024d6be473703c677e502ba1f7c18e2c` | 收币地址      |
-| tokenId     | string | 是  | `0.01`                                       | 发送数量      |
-| tokenAmount | string | 否  | `10`                                         | 仅1155协议需要 |
-| comment     | string | 否  | `test send`                                  | 交易说明      |
+| 字段          | 类型     | 必填 | 示例值                                          | 描述                                                                     |
+|-------------|--------|----|----------------------------------------------|------------------------------------------------------------------------|
+| addressId   | int    | 是  | `102`                                        | 发送地址ID                                                                 |
+| projectId   | int    | 是  | `56`                                         | NFT项目ID                                                                |
+| toAddress   | string | 是  | `0x7412f0ef024d6be473703c677e502ba1f7c18e2c` | 收币地址                                                                   |
+| tokenId     | string | 是  | `0.01`                                       | 发送数量                                                                   |
+| tokenAmount | string | 否  | `10`                                         | 仅1155协议需要                                                              |
+| evmNonce    | int    | 否  | `null`, `0`                                  | Default is null, EVM chain nonce, used to replace pending transactions |
+| comment     | string | 否  | `test send`                                  | 交易说明                                                                   |
 
 #### Response
 * 同 `21、发送普通交易`
