@@ -238,10 +238,11 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段             | 类型     | 必填 | 示例值         | 描述   |
-|----------------|--------|----|-------------|------|
-| invitationCode | string | 是  | `WERWSF`    | 邀请码  |
-| custodianName  | string | 是  | `Hermes AI` | AI名称 |
+| 字段             | 类型     | 必填 | 示例值         | 描述         |
+|----------------|--------|----|-------------|------------|
+| invitationCode | string | 是  | `WERWSF`    | 钱包邀请码      |
+| custodianName  | string | 是  | `Hermes AI` | 你在钱包中的显示名称 |
+
 
 #### Response
 
@@ -325,13 +326,13 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Response - []
 
-| 字段              | 类型     | Null | 示例值                                                                        | 描述                          |
-|-----------------|--------|------|----------------------------------------------------------------------------|-----------------------------|
-| currencyId      | int    | 否    | `23`                                                                       | 链ID,也是链的主币ID                |
-| netType         | int    | 否    | `2`                                                                        | 网络类型, 1. Testnet 2. Mainnet |
-| baseSymbol      | string | 否    | `ETH` `POL` `BNB` `DOT` `ETH(ARB1)`                                        | 主币名称                        |
-| abbreviation    | string | 否    | `ETH` `POL` `BSC` `DOT` `ARB1`                                             | 链名名称                        |
-| networkFullName | string | 否    | `Ethereum` `Polygon` `Binance Smart Chain` `Polkadot Asset Hub` `Arbitrum` | 链名全称                        |
+| 字段              | 类型     | Null | 示例值                                                                        | 描述                        |
+|-----------------|--------|------|----------------------------------------------------------------------------|---------------------------|
+| currencyId      | int    | 否    | `23`                                                                       | 链ID,也是链的主币ID              |
+| netType         | int    | 否    | `2`                                                                        | 网络类型, 1.Testnet 2.Mainnet |
+| baseSymbol      | string | 否    | `ETH` `POL` `BNB` `DOT` `ETH(ARB1)`                                        | 主币名称                      |
+| abbreviation    | string | 否    | `ETH` `POL` `BSC` `DOT` `ARB1`                                             | 链名名称                      |
+| networkFullName | string | 否    | `Ethereum` `Polygon` `Binance Smart Chain` `Polkadot Asset Hub` `Arbitrum` | 链名全称                      |
 
 
 
@@ -343,7 +344,7 @@ curl -X POST http://localhost:8080/mcp \
 | 字段       | 类型     | 必填 | 示例值                                                | 描述                        |
 |----------|--------|----|----------------------------------------------------|---------------------------|
 | netType  | int    | 是  | `2`                                                | 网络类型, 1.Testnet 2.Mainnet |
-| currency | string | 否  | `ETH` `Ethereum` `MATIC` `POL` `Polygon` `Binance` | 模糊搜索字符串                   |
+| currency | string | 否  | `ETH` `Ethereum` `MATIC` `POL` `Polygon` `Binance` | 链名称或符号, 最小长度2, 模糊搜索       |
 
 
 #### Response
@@ -368,14 +369,14 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Response - []
 
-| 字段              | 类型     | Null | 示例值                                                                        | 描述                          |
-|-----------------|--------|------|----------------------------------------------------------------------------|-----------------------------|
-| protocolId      | int    | 否    | `34`                                                                       | 协议ID                        |
-| netType         | int    | 否    | `2`                                                                        | 网络类型, 1. Testnet 2. Mainnet |
-| currency        | string | 否    | `ERC20`                                                                    | 协议名称                        |
-| abbreviation    | string | 否    | `ETH` `POL` `BSC` `DOT` `ARB1`                                             | 链名名称                        |
-| networkFullName | string | 否    | `Ethereum` `Polygon` `Binance Smart Chain` `Polkadot Asset Hub` `Arbitrum` | 链名全称                        |
-| nftState        | int    | 否    | `1`                                                                        | 是否支持NFT 1.支持 2.不支持          |
+| 字段              | 类型     | Null | 示例值                                                                        | 描述                        |
+|-----------------|--------|------|----------------------------------------------------------------------------|---------------------------|
+| protocolId      | int    | 否    | `34`                                                                       | 协议ID                      |
+| netType         | int    | 否    | `2`                                                                        | 网络类型, 1.Testnet 2.Mainnet |
+| currency        | string | 否    | `ERC20`                                                                    | 协议名称                      |
+| abbreviation    | string | 否    | `ETH` `POL` `BSC` `DOT` `ARB1`                                             | 链名名称                      |
+| networkFullName | string | 否    | `Ethereum` `Polygon` `Binance Smart Chain` `Polkadot Asset Hub` `Arbitrum` | 链名全称                      |
+| nftState        | int    | 否    | `1`                                                                        | 是否支持NFT 1.支持 2.不支持        |
 
 
 ### 9、搜索支持协议列表
@@ -386,7 +387,7 @@ curl -X POST http://localhost:8080/mcp \
 | 字段       | 类型     | 必填 | 示例值                      | 描述                        |
 |----------|--------|----|--------------------------|---------------------------|
 | netType  | int    | 是  | `2`                      | 网络类型, 1.Testnet 2.Mainnet |
-| currency | string | 否  | `ETH` `Ethereum` `ERC20` | 链名称或协议名称, 模糊搜索字符串         |
+| currency | string | 否  | `ETH` `Ethereum` `ERC20` | 链名称或协议名称, 最小长度2, 模糊搜索     |
 
 
 #### Response - []
@@ -431,9 +432,9 @@ curl -X POST http://localhost:8080/mcp \
 | 字段           | 类型     | 必填 | 示例值              | 描述                        |
 |--------------|--------|----|------------------|---------------------------|
 | netType      | int    | 是  | `2`              | 网络类型, 1.Testnet 2.Mainnet |
-| currency     | string | 否  | `ETH` `Ethereum` | 链名称或主币名称，最小长度2，模糊搜索       |
-| flag         | string | 否  | `0xdAC17F`       | 合约地址，最小长度6，模糊搜索           |
-| currencyName | string | 是  | `ETH` `USDT`     | 币种名称，最小长度2，模糊搜索           |
+| currency     | string | 否  | `ETH` `Ethereum` | 二选一, 链名称或符号, 最小长度2        |
+| currencyName | string | 是  | `ETH` `USDT`     | 二选一, 币种名称, 最小长度2          |
+| flag         | string | 否  | `0xdAC17F`       | 代币合约地址, 最小长度6             |
 
 #### Response - []
 * 同 `10、获取支持币种列表`
@@ -445,10 +446,10 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段         | 类型     | 必填 | 示例值                                          | 描述        |
-|------------|--------|----|----------------------------------------------|-----------|
-| protocolId | int    | 是  | `34`                                         | 协议ID      |
-| flag       | string | 是  | `0xdAC17F958D2ee523a2206206994597C13D831ec7` | 合约地址或代币ID |
+| 字段         | 类型     | 必填 | 示例值                                          | 描述                                     |
+|------------|--------|----|----------------------------------------------|----------------------------------------|
+| protocolId | int    | 是  | `34`                                         | 协议ID, 参考get_protocols或search_protocols |
+| flag       | string | 是  | `0xdAC17F958D2ee523a2206206994597C13D831ec7` | 代币合约地址                                 |
 
 
 #### Response
@@ -494,9 +495,9 @@ curl -X POST http://localhost:8080/mcp \
 | 字段          | 类型     | 必填 | 示例值              | 描述                        |
 |-------------|--------|----|------------------|---------------------------|
 | netType     | int    | 是  | `2`              | 网络类型, 1.Testnet 2.Mainnet |
-| currency    | string | 否  | `ETH` `Ethereum` | 链名称或主币名称，最小长度2，模糊搜索       |
-| flag        | string | 否  | `0xdAC17F`       | 合约地址，最小长度6，模糊搜索           |
-| projectName | string | 是  | `Blokyz`         | NFT项目名称，最小长度2，模糊搜索        |
+| currency    | string | 否  | `ETH` `Ethereum` | 二选一, 链名称或符号, 最小长度2        |
+| projectName | string | 是  | `Blokyz`         | 二选一, NFT项目名称, 最小长度2       |
+| flag        | string | 否  | `0xdAC17F`       | NFT合约地址, 最小长度6            |
 
 #### Response - []
 * 同 `13、获取NFT项目列表`
@@ -508,10 +509,10 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段         | 类型     | 必填 | 示例值                                          | 描述        |
-|------------|--------|----|----------------------------------------------|-----------|
-| protocolId | int    | 是  | `34`                                         | 协议ID      |
-| flag       | string | 是  | `0x84270A00a77D45ae007D2b0897F05b872ad1704F` | 合约地址或代币ID |
+| 字段         | 类型     | 必填 | 示例值                                          | 描述                                     |
+|------------|--------|----|----------------------------------------------|----------------------------------------|
+| protocolId | int    | 是  | `34`                                         | 协议ID, 参考get_protocols或search_protocols |
+| flag       | string | 是  | `0x84270A00a77D45ae007D2b0897F05b872ad1704F` | 合约地址或代币ID                              |
 
 #### Response
 * 同 `13、获取NFT项目列表`
@@ -529,13 +530,13 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段         | 类型  | 必填 | 示例值  | 描述              |
-|------------|-----|----|------|-----------------|
-| walletId   | int | 是  | `12` | 钱包ID            |
-| chainId    | int | 否  | `23` | 链ID             |
-| currencyId | int | 否  | `45` | 币种ID            |
-| pageIndex  | int | 否  | `1`  | 页码，从1开始，默认1     |
-| pageSize   | int | 否  | `20` | 每页条数，默认20，最大100 |
+| 字段         | 类型  | 必填 | 示例值  | 描述                  |
+|------------|-----|----|------|---------------------|
+| walletId   | int | 是  | `12` | 钱包ID                |
+| chainId    | int | 否  | `23` | 可选, 按链ID过滤          |
+| currencyId | int | 否  | `45` | 可选, 按币种ID过滤         |
+| pageIndex  | int | 否  | `1`  | 可选, 页码, 默认1         |
+| pageSize   | int | 否  | `20` | 可选, 每页条数，默认20，最大100 |
 
 #### Response - []
 
@@ -562,11 +563,11 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段           | 类型     | 必填 | 示例值      | 描述                                |
-|--------------|--------|----|----------|-----------------------------------|
-| addressStr   | string | 是  | `c18e2c` | 钱包地址, 或EOS和VAULTA链账户, 最小长度6, 模糊搜索 |
-| currencyId   | int    | 否  | `45`     | 币种ID                              |
-| currencyType | int    | 否  | `1` `3`  | 币种类型, 0.默认全部 1.主币, 3.代币           |
+| 字段           | 类型     | 必填 | 示例值      | 描述                                        |
+|--------------|--------|----|----------|-------------------------------------------|
+| addressStr   | string | 是  | `c18e2c` | 钱包地址或EOS/VAULTA账户, 最小长度6, 模糊搜索            |
+| currencyId   | int    | 否  | `45`     | 可选, 按币种ID过滤                               |
+| currencyType | int    | 否  | `1` `3`  | 可选, 按币种类型过滤, 0.全部 1.主币 3.代币, enum=0\|1\|3 |
 
 #### Response - []
 * 同 `16、获取钱包地址列表`
@@ -579,10 +580,10 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段         | 类型  | 必填 | 示例值  | 描述              |
-|------------|-----|----|------|-----------------|
-| walletId   | int | 是  | `12` | 钱包ID            |
-| currencyId | int | 否  | `45` | 币种ID            |
+| 字段         | 类型  | 必填 | 示例值  | 描述                                          |
+|------------|-----|----|------|---------------------------------------------|
+| walletId   | int | 是  | `12` | 钱包ID, 参考get_wallets                         |
+| currencyId | int | 否  | `45` | 币种ID, 参考search_currencies或search_currencies |
 
 #### Response
 
@@ -606,9 +607,9 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段         | 类型  | 必填 | 示例值   | 描述   |
-|------------|-----|----|-------|------|
-| addressId  | int | 是  | `102` | 地址ID |
+| 字段        | 类型  | 必填 | 示例值   | 描述                    |
+|-----------|-----|----|-------|-----------------------|
+| addressId | int | 是  | `102` | 地址ID, 参考get_addresses |
 
 #### Response
 
@@ -628,15 +629,15 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段         | 类型     | 必填 | 示例值                                          | 描述                   |
-|------------|--------|----|----------------------------------------------|----------------------|
-| addressStr | string | 是  | `0x7412f0ef024d6be473703c677e502ba1f7c18e2c` | 钱包地址, 或EOS和VAULTA链账户 |
-| currencyId | int    | 否  | `45`                                         | 币种ID                 |
+| 字段         | 类型     | 必填 | 示例值                                          | 描述                        |
+|------------|--------|----|----------------------------------------------|---------------------------|
+| addressStr | string | 是  | `0x7412f0ef024d6be473703c677e502ba1f7c18e2c` | 区块链地址字符串, 或EOS/VAULTA账户   |
+| currencyId | int    | 否  | `45`                                         | 币种ID, 参考search_currencies |
 
 
 #### Response
 
-| 字段           | 类型     | Null | 示例值                                          | 描述                          |
+| 字段           | 类型     | Null | 示例값                                          | 描述                          |
 |--------------|--------|------|----------------------------------------------|-----------------------------|
 | netType      | int    | 否    | `2`                                          | 网络类型, 1. Testnet 2. Mainnet |
 | addressId    | int    | 是    | `102`                                        | 地址ID, 如果地址未添加则值为0           |
@@ -662,7 +663,10 @@ curl -X POST http://localhost:8080/mcp \
 | toAddress | string | 是  | `0x7412f0ef024d6be473703c677e502ba1f7c18e2c` | 收币地址                                                       |
 | amount    | string | 是  | `0.01`                                       | 发送数量                                                       |
 | memo      | string | 否  | `123456`                                     | [xrp, eos, trx, trc20, sol, spl, algo, atom]有Memo、[xrp]需数字 |
-| comment   | string | 否  | `send test`                                  | 交易说明                                                       |
+| evmNonce  | *int   | 否  | `null`, `0`                                  | 默认null, EVM链nonce, 用于替换待处理交易                               |
+| comment   | string | 是  | `send test`                                  | 交易说明                                                       |
+
+
 
 #### Response
 
@@ -692,15 +696,14 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段          | 类型     | 必填 | 示例值                                          | 描述                                                                     |
-|-------------|--------|----|----------------------------------------------|------------------------------------------------------------------------|
-| addressId   | int    | 是  | `102`                                        | 发送地址ID                                                                 |
-| projectId   | int    | 是  | `56`                                         | NFT项目ID                                                                |
-| toAddress   | string | 是  | `0x7412f0ef024d6be473703c677e502ba1f7c18e2c` | 收币地址                                                                   |
-| tokenId     | string | 是  | `0.01`                                       | 发送数量                                                                   |
-| tokenAmount | string | 否  | `10`                                         | 仅1155协议需要                                                              |
-| evmNonce    | int    | 否  | `null`, `0`                                  | Default is null, EVM chain nonce, used to replace pending transactions |
-| comment     | string | 否  | `test send`                                  | 交易说明                                                                   |
+| 字段          | 类型     | 必填 | 示例值                                          | 描述                        |
+|-------------|--------|----|----------------------------------------------|---------------------------|
+| addressId   | int    | 是  | `102`                                        | 发送地址ID                    |
+| projectId   | int    | 是  | `56`                                         | NFT项目ID                   |
+| toAddress   | string | 是  | `0x7412f0ef024d6be473703c677e502ba1f7c18e2c` | 收币地址                      |
+| tokenId     | string | 是  | `2`                                          | NFT Token ID              |
+| tokenAmount | string | 否  | `20`                                         | NFT Token数量, 仅ERC1155协议需要 |
+| comment     | string | 是  | `test send`                                  | 交易说明                      |
 
 #### Response
 * 同 `21、发送普通交易`
@@ -714,14 +717,14 @@ curl -X POST http://localhost:8080/mcp \
 
 #### Request
 
-| 字段        | 类型     | 必填 | 示例值                                                                                     | 描述              |
-|-----------|--------|----|-----------------------------------------------------------------------------------------|-----------------|
-| walletId  | int    | 是  | `12`                                                                                    | 钱包ID            |
-| addressId | int    | 否  | `102`                                                                                   | 地址ID            |
-| txType    | string | 否  | `TEE_CRYPTO_TRANSACTION` `TEE_CONTRACT_TRANSACTION_NFT` `TEE_CONTRACT_TRANSACTION_DAPP` | 交易类型            |
-| status    | string | 否  | `PENDING_APPROVAL` `TIMEOUT` `APPROVED` `REJECTED` `ERROR` `REVOKED`                    | 交易状态            |
-| pageIndex | int    | 否  | `1`                                                                                     | 页码，从1开始，默认1     |
-| pageSize  | int    | 否  | `20`                                                                                    | 每页条数，默认20，最大100 |
+| 字段        | 类型     | 必填 | 示例值                                                                                     | 描述                                                                              |
+|-----------|--------|----|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| walletId  | int    | 是  | `12`                                                                                    | 钱包ID                                                                            |
+| addressId | int    | 否  | `102`                                                                                   | 可选, 按地址ID过滤                                                                     |
+| txType    | string | 否  | `TEE_CRYPTO_TRANSACTION` `TEE_CONTRACT_TRANSACTION_NFT` `TEE_CONTRACT_TRANSACTION_DAPP` | 可选, 按交易类型过滤                                                                     |
+| status    | string | 否  | `PENDING_APPROVAL` `TIMEOUT` `APPROVED` `REJECTED` `ERROR` `REVOKED`                    | 可选, 按交易状态过滤, enum=PENDING_APPROVAL\|TIMEOUT\|APPROVED\|REJECTED\|ERROR\|REVOKED |
+| pageIndex | int    | 否  | `1`                                                                                     | 可选, 页码, 默认1                                                                     |
+| pageSize  | int    | 否  | `20`                                                                                    | 可选, 每页条数, 默认20, 最大100                                                           |
 
 #### Response - []
 
@@ -751,7 +754,7 @@ curl -X POST http://localhost:8080/mcp \
 
 | 字段       | 类型     | 必填 | 示例值                   | 描述   |
 |----------|--------|----|-----------------------|------|
-| bundleId | string | 否  | `1967806516108304386` | 交易ID |
+| bundleId | string | 是  | `1967806516108304386` | 交易ID |
 
 #### Response
 
@@ -761,3 +764,44 @@ curl -X POST http://localhost:8080/mcp \
    "accelerates": accelerates  // Transaction accelerate data
 }
 ```
+
+
+
+### 25、审批交易
+> approval_transaction
+
+#### Request
+
+| 字段         | 类型     | 必填 | 示例值                   | 描述               |
+|------------|--------|----|-----------------------|------------------|
+| bundleId   | string | 是  | `1967806516108304386` | 待审批交易ID          |
+| isApproved | bool   | 是  | `true`                | true.同意 false.拒绝 |
+| comment    | string | 是  | `agent approved`      | 审批备注             |
+
+#### Response
+
+```text
+{
+   "transaction": transaction, // Transaction info
+   "accelerates": accelerates  // Transaction accelerate data
+}
+```
+
+
+### 26、自定义地址路径开关
+> custom_address_path
+
+切换本地 HD 钱包「自定义派生路径」开关，仅更新本地设置，不会派生或添加任何地址。开启后，后续通过 `add_address` 添加的地址将自动递增地址index。
+
+#### Request
+
+| 字段     | 类型   | 必填 | 示例值    | 描述                             |
+|--------|------|----|--------|--------------------------------|
+| enable | bool | 是  | `true` | true.开启自定义地址路径 false.关闭自定义地址路径 |
+
+
+#### Response
+
+| 字段     | 类型   | 必填 | 示例值    | 描述              |
+|--------|------|----|--------|-----------------|
+| enable | bool | 否  | `true` | 更新后的自定义地址路径开关状态 |

@@ -2,6 +2,15 @@
 
 本文件记录项目的所有重要变更。
 
+## [v1.0.8] - 2026-10-09
+
+### Added
+- 添加 `approval_transaction` 工具
+- 添加 `custom_address_path` 工具
+
+### Changed
+- 调整部分工具请求参数描述信息、README.md
+
 
 ## [v1.0.7] - 2026-10-05
 
