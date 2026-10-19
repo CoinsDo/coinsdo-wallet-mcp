@@ -2,6 +2,37 @@
 
 本文件记录项目的所有重要变更。
 
+## [v1.0.9] - 2026-10-19
+
+### Added
+- 新增 `get_gen_address_requests` 工具：查询 `add_address` 发起的派生审批状态（PENDING_APPROVAL / APPROVED / REJECTED / TIMEOUT 等），解决审批超时后 agent 无法感知结果的问题
+- `get_wallet` / `get_wallets` 返回 `custodianSize`（成员数）与 `threshold`（审批门槛）
+- `-clean-data` 支持 `-y` 参数跳过交互确认（便于脚本化），警告文案明确标注该操作会永久删除 agent 密钥分片
+- `send_transaction` / `send_nft_transaction` 的 `toAddress` 参数新增格式校验（宽松模式：仅拦截空地址、字符集/长度明显非法等高置信错误，未知链与新格式不拦截，最终以后端链上校验兜底）
+- 添加代币 `ARB1 - USDT0 0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9`（仅新安装 MCP 服务有效，旧版本不受影响）
+
+### Fixed
+- 修复枚举参数 jsonschema 生成为 `"enum":["1|2"]` 单字符串的问题（netType / nftState / currencyType / status，共涉及 10 个工具），输出真正的数字/字符串枚举数组，兼容 Hermes 等严格 schema 校验的客户端
+- 修复 `search_chains` 误用 `get_currencies` 参数 schema 导致 `currency` 参数缺失的问题
+- `send_transaction` 返回结果补全 `netType` / `txType` 字段
+- `query_address_balance` 修复 `addressId` 恒为 0 的问题
+- `search_protocols` 修复搜索 ERC20 等非 NFT 协议返回空的问题
+- search_currencies 支持传 `flag`（合约地址）模糊查询
+- `join_mpc_wallet` 修复加入 MPC 钱包后本地 `status` 为空的问题（立即回填服务端返回状态）
+- `add_address` 输出 schema 修正为实际返回结构，工具描述如实说明主币（走门限审批）与代币（复用 index 0 地址）的不同派生行为
+- 启动失败提示移除不存在的 `[-r]` 参数，改为按 secure storage 故障场景给出准确的恢复指引
+
+### Changed
+- 安全存储跨平台改进（升级后首次启动可能仍有一次迁移提示，完成迁移后永久生效）：
+  - macOS：Keychain 条目改用无应用访问限制的方式存取，彻底消除钥匙串授权弹窗；仅版本升级后首次启动可能弹出一次旧条目授权框，点击「始终允许 / Allow All」后自动迁移，此后不再弹窗；全新安装全程无窗
+  - Linux / Docker：主密钥优先读取 `COINSDO_MASTER_KEY_FILE` 或 Docker secret `/run/secrets/coinsdo_master_key`，两者均未配置时首次启动自动生成；未配置时旧版本密文不兼容，需运行 `-clean-data` 清除数据后重新初始化；新增主密钥指纹检测，机器码变化或密钥文件被改动时启动即给出明确报错与恢复指引，不再输出晦涩的解密失败
+  - Windows：DPAPI 加密与解密统一为用户范围（修复旧版加密用机器范围、解密用用户范围的不一致），旧格式密文首次读取时自动迁移；全程无任何弹窗，正常修改系统登录密码不影响存储的持久性
+- `send_transaction` 的 `memo` 参数描述明确列出支持链与格式要求
+
+### Deleted
+- 删除 `OKT`、`HECO/HT`、`Fantom`、`DOT_OLD` 链（仅新安装 MCP 服务有效，旧版本不受影响）
+- 删除 `Tron-USDC` 默认代币（仅新安装 MCP 服务有效，旧版本不受影响）
+
 ## [v1.0.8] - 2026-10-09
 
 ### Added
@@ -29,7 +60,7 @@
 ## [v1.0.6] - 2026-09-30
 
 ### Removed
-- 删除 `claim_key_shard` 工具
+- 删除 `claim_key_shard` 工具。移除原因：MCP服务定时任务自动处理key shard，移除该工具。
 
 ### Changed
 - 优化工具返回列表数据结构
